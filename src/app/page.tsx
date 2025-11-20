@@ -2,10 +2,8 @@ import Homepage from "./Homepage/page";
 
 export default function Home() {
   return (
-    <div>
-      <main>
-        <Homepage />
-      </main>
-    </div>
+    <main>
+      <Homepage />
+    </main>
   );
 }

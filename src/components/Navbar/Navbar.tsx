@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { NAV_ITEMS, NAV_CONFIG } from "./navbar.constants";
 import Button from "../UI/Button";
+import Image from "next/image";
+import logo from "@/assests/home/logo.svg";
 
 type IconProps = React.SVGProps<SVGSVGElement>;
 
@@ -72,59 +74,72 @@ function Navbar() {
   return (
     <>
       {/* Top Navbar - Logo and Launch App Button */}
-      <nav className="relative z-50 w-full">
+      <nav
+        className={` z-50 w-full fixed top-0 left-0 right-0 bg-[#09090e] ${
+          isMenuOpen ? "border-b border-white/10" : "border-b border-white/10"
+        }`}
+      >
         {/* Main content container */}
-        <div className="relative z-30 flex items-center justify-between px-6 py-4 md:px-8 md:py-[18px]">
+        <div className="relative z-30 flex items-center justify-between ">
           {/* Logo */}
+
           <Link
             href={NAV_CONFIG.logo.href}
-            className={`font-semibold text-xl tracking-wide hover:opacity-80 transition-opacity shrink-0 ${
-              isMenuOpen ? "text-white" : "text-black"
+            className={`px-6 py-4 md:px-8 md:py-[18px] flex items-center gap-2 font-semibold text-2xl tracking-wider hover:opacity-80 transition-opacity shrink-0 ${
+              isMenuOpen ? "text-white" : "text-white"
             }`}
           >
+            <Image src={logo} alt="Maxxit" width={50} height={50} />
             {NAV_CONFIG.logo.text}
           </Link>
 
           {/* Right side controls */}
-          <div className="flex items-center gap-4 sm:gap-6">
-            {/* <Button variant="white" type="button">
-              {NAV_CONFIG.launchApp.label}
-            </Button> */}
-            <button type="button" className="btn-launch-app">
-              {NAV_CONFIG.launchApp.label}
-            </button>
-            <button
-              type="button"
-              onClick={toggleMenu}
-              aria-label="Toggle menu"
-              className={`relative w-12 h-12 rounded-full transition ${
-                isMenuOpen
-                  ? "bg-black border border-white text-white"
-                  : "border border-black/40 bg-transparent text-black hover:border-black"
-              }`}
-            >
-              <span
-                className={`absolute left-1/2 block h-0.5 w-6 -translate-x-1/2 bg-current transition-all duration-300 ease-out ${
+          <div
+            className={` border-l px-10 ${
+              isMenuOpen ? "border-white/10" : "border-white/10"
+            }`}
+          >
+            <div className="px-6 py-4 md:px-8 md:py-[18px] flex items-center gap-4 sm:gap-6 ">
+              <Button
+                type="button"
+                className={`${isMenuOpen ? "text-white" : "text-white"}`}
+              >
+                {NAV_CONFIG.launchApp.label}
+              </Button>
+
+              <button
+                type="button"
+                onClick={toggleMenu}
+                aria-label="Toggle menu"
+                className={`relative w-12 h-12 rounded-full transition ${
                   isMenuOpen
-                    ? "top-1/2 -translate-y-1/2 rotate-45"
-                    : "top-1/2 -translate-y-[10px]"
+                    ? "border border-white/40 bg-transparent text-white hover:border-white"
+                    : "border border-white/40 bg-transparent text-white hover:border-white"
                 }`}
-              />
-              <span
-                className={`absolute left-1/2 block h-0.5 w-6 -translate-x-1/2 bg-current transition-opacity duration-300 ease-out ${
-                  isMenuOpen
-                    ? "opacity-0"
-                    : "opacity-100 top-1/2 -translate-y-1/2"
-                }`}
-              />
-              <span
-                className={`absolute left-1/2 block h-0.5 w-6 -translate-x-1/2 bg-current transition-all duration-300 ease-out ${
-                  isMenuOpen
-                    ? "top-1/2 -translate-y-1/2 -rotate-45"
-                    : "top-1/2 translate-y-[10px]"
-                }`}
-              />
-            </button>
+              >
+                <span
+                  className={`absolute left-1/2 block h-0.5 w-6 -translate-x-1/2 bg-current transition-all duration-300 ease-out ${
+                    isMenuOpen
+                      ? "top-1/2 -translate-y-1/2 rotate-45"
+                      : "top-1/2 -translate-y-[10px]"
+                  }`}
+                />
+                <span
+                  className={`absolute left-1/2 block h-0.5 w-6 -translate-x-1/2 bg-current transition-opacity duration-300 ease-out ${
+                    isMenuOpen
+                      ? "opacity-0"
+                      : "opacity-100 top-1/2 -translate-y-1/2"
+                  }`}
+                />
+                <span
+                  className={`absolute left-1/2 block h-0.5 w-6 -translate-x-1/2 bg-current transition-all duration-300 ease-out ${
+                    isMenuOpen
+                      ? "top-1/2 -translate-y-1/2 -rotate-45"
+                      : "top-1/2 translate-y-[10px]"
+                  }`}
+                />
+              </button>
+            </div>
           </div>
         </div>
       </nav>
@@ -132,7 +147,7 @@ function Navbar() {
       {/* Fullscreen Menu Overlay */}
       <div
         aria-hidden={!isMenuOpen}
-        className={`fixed inset-0 z-40 bg-black/95 backdrop-blur-md flex flex-col items-center justify-center gap-10 px-6 pt-24 transition-all duration-500 ease-out ${
+        className={`fixed inset-0 z-40 bg-black/95 backdrop-blur-lg flex flex-col items-center justify-center gap-10 px-6 pt-24 transition-all duration-500 ease-out ${
           isMenuOpen
             ? "opacity-100 translate-y-0 pointer-events-auto"
             : "opacity-0 -translate-y-full pointer-events-none"
@@ -199,7 +214,11 @@ function Navbar() {
           style={{ transitionDelay: `${NAV_ITEMS.length * 80 + 120}ms` }}
         >
           {LEGAL_LINKS.map(({ label, href }) => (
-            <Link key={label} href={href} className="hover:text-white/80">
+            <Link
+              key={label}
+              href={href}
+              className="hover:text-white/80 text-white"
+            >
               {label}
             </Link>
           ))}
