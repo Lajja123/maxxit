@@ -6,6 +6,13 @@
 }
 
 @theme inline {
+  --breakpoint-bp-xs: 400px;
+  --breakpoint-xs: 480px;
+  --breakpoint-bp-sm: 540px;
+  --breakpoint-bp-md: 700px;
+  --breakpoint-bp-mx: 850px;
+  --breakpoint-bp-lg: 900px;
+  --breakpoint-bp-2xl: 1800px;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
@@ -65,3 +72,7 @@ body {
   border: 1px solid white;
   transform: translateX(50%) translateY(-50%);
 } */
+
+.btn-launch-app {
+  position: relative;
+}
