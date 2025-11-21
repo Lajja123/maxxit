@@ -47,8 +47,8 @@ const Hero = () => {
           <Typography
             variant="h1"
             color="white"
-            weight="bold"
-            className=" tracking-tight"
+            weight="semibold"
+            className="text-4xl tracking-tight sm:text-5xl lg:text-6xl"
           >
             Insights that Lead with <br />
             <span className="mt-6 inline-block bg-[#09090e]">
@@ -72,20 +72,20 @@ const Hero = () => {
           <Typography
             variant="h6"
             color="white"
-            weight="light"
-            className="text-white/80 max-w-lg"
+            weight="normal"
+            className="mx-auto max-w-xl text-base text-white/80 sm:mx-0 sm:text-lg"
           >
             Say goodbye to guesswork. Our AI analyzes Twitter trends and
             delivers precise trading signals—helping you stay ahead with
             real-time crypto insights.
           </Typography>
 
-          <div className="flex gap-6 py-3">
+          <div className="flex flex-col items-stretch gap-4 py-3 sm:flex-row sm:items-center">
             <Button
               variant="black"
               paddingX="px-8"
               paddingY="py-4"
-              className="border border-white/20 text-white hover:border-white/40"
+              className="w-full border border-white/20 text-white hover:border-white/40 sm:w-auto"
             >
               Launch App
             </Button>
@@ -93,15 +93,21 @@ const Hero = () => {
               variant="black"
               paddingX="px-8"
               paddingY="py-4"
-              className="border border-white/20 text-white hover:border-white/40"
+              className="w-full border border-white/20 text-white hover:border-white/40 sm:w-auto"
             >
               Share Your Signals
             </Button>
           </div>
         </div>
 
-        <div className="relative flex-1 ">
-          <Image src={hero} alt="Hero" />
+        <div className="relative mt-12 flex w-full flex-1 max-w-xl self-center sm:mt-16 lg:mt-0 lg:max-w-none">
+          <Image
+            src={hero}
+            alt="Hero"
+            priority
+            className="h-auto w-full object-contain"
+            sizes="(min-width: 1280px) 40vw, (min-width: 1024px) 45vw, (min-width: 640px) 70vw, 90vw"
+          />
         </div>
       </div>
     </section>

@@ -70,19 +70,23 @@ function Homepage() {
     <div className="relative bg-[#02040A] text-white">
       <Hero />
 
-      <div className="relative mx-auto flex w-full max-w-9xl flex-col pb-20 pt-12  lg:flex-row lg:items-start ">
-        <div className="flex-1 space-y-24">
+      <div className="relative mx-auto flex w-full max-w-[1920px] flex-col overflow-hidden pb-20 pt-12 lg:flex-row lg:items-start">
+        <div className="flex-1 space-y-24 overflow-hidden">
           {sectionsConfig.map(({ id, Component }) => (
             <section
               id={id}
               key={id}
-              className="scroll-mt-24  border border-white/5 bg-white/3 p-6 shadow-[0_20px_120px_rgba(9,9,14,0.6)] sm:p-10"
+              className={`scroll-mt-24 ${
+                id === "section-usecases" || id === "section-walkthrough"
+                  ? "border-0 p-0"
+                  : "border border-white/5 bg-white/3 p-6 shadow-[0_20px_120px_rgba(9,9,14,0.6)] sm:p-10"
+              }`}
             >
               <Component />
             </section>
           ))}
         </div>
-        <aside className="hidden w-full max-w-[350px] shrink-0 lg:sticky lg:top-20 lg:block">
+        <aside className="hidden w-full max-w-[290px] shrink-0 lg:sticky lg:top-20 lg:block">
           <div className="relative border border-white/10 bg-white/5/30 p-6 backdrop-blur">
             <p className="mb-6 text-xs uppercase tracking-[0.25em] text-white/60">
               Sections
@@ -110,13 +114,13 @@ function Homepage() {
                     </span>
                     {label}
                   </span>
-                  <span
+                  {/* <span
                     className={`h-1 w-10  ${
                       isActive
                         ? "bg-linear-to-r from-[#54D6FF] to-[#59FFAF]"
                         : "bg-white/20"
                     }`}
-                  />
+                  /> */}
                 </button>
               ))}
             </nav>

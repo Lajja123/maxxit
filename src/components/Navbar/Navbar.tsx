@@ -94,15 +94,14 @@ function Navbar() {
           </Link>
 
           {/* Right side controls */}
-          <div
-            className={` border-l px-10 ${
-              isMenuOpen ? "border-white/10" : "border-white/10"
-            }`}
-          >
-            <div className="px-6 py-4 md:px-8 md:py-[18px] flex items-center gap-4 sm:gap-6 ">
+          <div className={`border-l border-white/10 px-4 md:px-6 lg:px-10`}>
+            <div className="flex items-center gap-3 py-3 sm:gap-4 md:gap-6">
               <Button
                 type="button"
-                className={`${isMenuOpen ? "text-white" : "text-white"}`}
+                variant="black"
+                paddingX="px-6"
+                paddingY="py-3"
+                className="hidden rounded-full border border-white/20 text-white transition hover:border-white/40 hover:bg-white/5 sm:inline-flex"
               >
                 {NAV_CONFIG.launchApp.label}
               </Button>
@@ -111,10 +110,12 @@ function Navbar() {
                 type="button"
                 onClick={toggleMenu}
                 aria-label="Toggle menu"
-                className={`relative w-12 h-12 rounded-full transition ${
+                aria-expanded={isMenuOpen}
+                aria-controls="maxxit-menu"
+                className={`relative flex h-11 w-11 items-center justify-center rounded-full border transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white ${
                   isMenuOpen
-                    ? "border border-white/40 bg-transparent text-white hover:border-white"
-                    : "border border-white/40 bg-transparent text-white hover:border-white"
+                    ? "border-white/60 bg-white/10 text-white"
+                    : "border-white/30 bg-transparent text-white hover:border-white/60"
                 }`}
               >
                 <span
@@ -146,6 +147,7 @@ function Navbar() {
 
       {/* Fullscreen Menu Overlay */}
       <div
+        id="maxxit-menu"
         aria-hidden={!isMenuOpen}
         className={`fixed inset-0 z-40 bg-black/95 backdrop-blur-lg flex flex-col items-center justify-center gap-10 px-6 pt-24 transition-all duration-500 ease-out ${
           isMenuOpen
