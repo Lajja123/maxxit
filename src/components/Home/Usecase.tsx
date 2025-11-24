@@ -2,236 +2,183 @@
 
 import React, { useState } from "react";
 
+import Typography from "../UI/Typography";
+
 const usecases = [
   {
-    title: "On-chain trend detection",
+    id: "zkk",
+    code: "01",
+    label: "ZKKYC",
+    heading: "A zero-knowledge identity layer for frictionless onboarding.",
     description:
-      "Identify emerging narratives across blockchains using real-time stream processing and anomaly detection.",
-    stat: "+34%",
-    subLabel: "alpha captured",
-    icon: (
-      <svg
-        viewBox="0 0 200 200"
-        className="w-full h-full"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <g stroke="#FFD700" strokeWidth="2" fill="#FFD700">
-          <circle cx="100" cy="50" r="15" />
-          <circle cx="50" cy="100" r="15" />
-          <circle cx="150" cy="100" r="15" />
-          <circle cx="100" cy="150" r="15" />
-          <line x1="100" y1="50" x2="50" y2="100" />
-          <line x1="100" y1="50" x2="150" y2="100" />
-          <line x1="50" y1="100" x2="100" y2="150" />
-          <line x1="150" y1="100" x2="100" y2="150" />
-        </g>
-      </svg>
-    ),
+      "Verify legal identities anywhere in the world without pushing sensitive files to centralized servers. Credentials stay encrypted inside the wallet until a verifier proves eligibility through zk attestations.",
+    metrics: [
+      { label: "Verification time", value: "< 30s" },
+      { label: "Manual reviews", value: "0 paperwork" },
+      { label: "Privacy leakage", value: "No PII in transit" },
+    ],
+    bullets: [
+      "Reusable zk attestations unlock cross-app composability.",
+      "Embedded liveness checks remove the need for video calls.",
+      "Audit-ready proofs satisfy both fintech and enterprise flows.",
+    ],
   },
   {
-    title: "Community signal boosting",
+    id: "defi",
+    code: "02",
+    label: "Under-collateralized DeFi lending",
+    heading: "Credit rails for on-chain lenders without exposing identity.",
     description:
-      "Aggregate social sentiment from X, Telegram, and Discord, then surface the most consistent traders to follow.",
-    stat: "120k",
-    subLabel: "signals parsed / day",
-    icon: (
-      <svg
-        viewBox="0 0 200 200"
-        className="w-full h-full"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <g stroke="#FFD700" strokeWidth="2" fill="#FFD700">
-          <rect x="40" y="40" width="120" height="120" rx="8" />
-          <circle cx="100" cy="100" r="30" fill="#000" />
-          <path
-            d="M85 100 L95 110 L115 90"
-            stroke="#FFD700"
-            strokeWidth="3"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </g>
-      </svg>
-    ),
+      "Pair zkKYC credentials with credit scoring oracles so institutions can lend against verifiable reputations while borrowers keep control over their raw documents.",
+    metrics: [
+      { label: "Capital efficiency", value: "3.4x" },
+      { label: "Fraud flags", value: "Automated" },
+      { label: "Supported chains", value: "EVM + Solana" },
+    ],
+    bullets: [
+      "Per-transaction proofs validate jurisdictional compliance.",
+      "Configurable disclosure policies adapt to local regulators.",
+      "Plug-and-play widgets drop inside existing lending UIs.",
+    ],
   },
   {
-    title: "Institutional compliance",
+    id: "health",
+    code: "03",
+    label: "Healthcare zk-data marketplace",
+    heading: "Exchange research-grade datasets while staying HIPAA-safe.",
     description:
-      "Generate explainable reports with multi-source evidence, ready to share with funds or compliance teams.",
-    stat: "42",
-    subLabel: "data sources",
-    icon: (
-      <svg
-        viewBox="0 0 200 200"
-        className="w-full h-full"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <g stroke="#FFD700" strokeWidth="2" fill="#FFD700">
-          <path d="M100 30 L160 70 L160 130 Q160 170 100 170 Q40 170 40 130 L40 70 Z" />
-          <rect x="70" y="90" width="60" height="40" rx="4" fill="#000" />
-          <line
-            x1="85"
-            y1="110"
-            x2="115"
-            y2="110"
-            stroke="#FFD700"
-            strokeWidth="2"
-          />
-        </g>
-      </svg>
-    ),
+      "Patients mint encrypted health profiles and lease access via zero-knowledge queries. Data buyers receive only the computed insights, never raw records.",
+    metrics: [
+      { label: "Release control", value: "Patient-owned" },
+      { label: "Data usage", value: "Policy locked" },
+      { label: "Insights delivered", value: "Aggregated only" },
+    ],
+    bullets: [
+      "Query-level proofs enforce pre-negotiated consent rules.",
+      "Built-in royalty logic streams payouts to contributors.",
+      "Medical partners audit activity through immutable logs.",
+    ],
+  },
+  {
+    id: "jobs",
+    code: "04",
+    label: "Decentralized job marketplace",
+    heading: "Trust-minimized recruiting with zk-backed credentials.",
+    description:
+      "Talent proves skills, work history, and background checks without revealing personal data. Employers unlock verified info only after mutual interest.",
+    metrics: [
+      { label: "Screening time", value: "-70%" },
+      { label: "Talent passport", value: "Wallet native" },
+      { label: "Identity exposure", value: "Selective" },
+    ],
+    bullets: [
+      "One-click NDAs & compliance steps via programmable proofs.",
+      "zk attestations cover education, certifications, and payroll.",
+      "Global hiring stays compliant with jurisdiction toggles.",
+    ],
   },
 ];
 
 function Usecase() {
-  const [selectedIndex, setSelectedIndex] = useState(0); // Default to first usecase
+  const [activeUsecaseId, setActiveUsecaseId] = useState(usecases[0].id);
 
   return (
-    <div className="relative min-h-screen w-full overflow-hidden bg-black">
-      {/* Grid background */}
-      <div
-        className="absolute inset-0 opacity-20"
-        style={{
-          backgroundImage:
-            "linear-gradient(90deg, rgba(255,215,0,0.1) 1px, transparent 1px), linear-gradient(180deg, rgba(255,215,0,0.1) 1px, transparent 1px)",
-          backgroundSize: "40px 40px",
-        }}
-      />
-
-      {/* Ruler markings */}
-      <div className="absolute left-0 top-0 bottom-0 w-8 border-r border-white/10">
-        {Array.from({ length: 20 }).map((_, i) => (
-          <div
-            key={i}
-            className="absolute left-0 w-2 border-t border-white/10"
-            style={{ top: `${i * 5}%` }}
-          />
-        ))}
+    <div className="relative overflow-hidden rounded-[32px] border border-white/10 bg-black/60 px-6 py-12 text-white shadow-[0_20px_120px_rgba(7,10,18,0.8)] sm:px-10 lg:px-16 lg:py-16">
+      <div className="pointer-events-none absolute inset-0 opacity-40">
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage:
+              "linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px), linear-gradient(180deg, rgba(255,255,255,0.08) 1px, transparent 1px)",
+            backgroundSize: "120px 120px",
+          }}
+        />
+        <div className="absolute inset-x-0 top-0 h-1 bg-[#C7FF52]" />
       </div>
-      <div className="absolute right-0 top-0 bottom-0 w-8 border-l border-white/10">
-        {Array.from({ length: 20 }).map((_, i) => (
-          <div
-            key={i}
-            className="absolute right-0 w-2 border-t border-white/10"
-            style={{ top: `${i * 5}%` }}
-          />
-        ))}
-      </div>
-      <div className="absolute top-0 left-0 right-0 h-8 border-b border-white/10">
-        {Array.from({ length: 25 }).map((_, i) => (
-          <div
-            key={i}
-            className="absolute top-0 h-2 border-l border-white/10"
-            style={{ left: `${i * 4}%` }}
-          />
-        ))}
-      </div>
-      <div className="absolute bottom-0 left-0 right-0 h-8 border-t border-white/10">
-        {Array.from({ length: 25 }).map((_, i) => (
-          <div
-            key={i}
-            className="absolute bottom-0 h-2 border-l border-white/10"
-            style={{ left: `${i * 4}%` }}
-          />
-        ))}
-      </div>
+      <Typography variant="h5" color="white" weight="bold">
+        Usecase
+      </Typography>
 
-      {/* Plus signs at corners */}
-      <div className="absolute top-4 right-4 text-white/20 text-2xl">+</div>
-      <div className="absolute bottom-4 right-4 text-white/20 text-2xl">+</div>
-      <div className="absolute top-4 left-4 text-white/20 text-2xl">+</div>
-      <div className="absolute bottom-4 left-4 text-white/20 text-2xl">+</div>
-
-      {/* Main content */}
-      <div className="relative z-10 flex h-screen w-full flex-col lg:flex-row">
-        {/* Left Section - Stacked Titles */}
-        <div className="flex w-full flex-1 flex-col border-r border-dashed border-white/10 p-6 lg:p-8 xl:p-12">
-          {/* Label */}
-          <div className="mb-8">
-            <div className="inline-block border border-white/20 px-3 py-1">
-              <span className="text-xs font-semibold uppercase tracking-wider text-white">
-                USECASES
-              </span>
-            </div>
-          </div>
-
-          {/* Stacked titles with yellow line indicator */}
-          <div className="mt-auto flex flex-col gap-6 lg:gap-8">
-            {usecases.map((usecase, index) => (
-              <div
-                key={usecase.title}
-                className="relative flex items-center gap-4"
-                onMouseEnter={() => setSelectedIndex(index)}
-                onClick={() => setSelectedIndex(index)}
+      <div className="relative mt-12 space-y-4">
+        {usecases.map((usecase) => {
+          const isActive = usecase.id === activeUsecaseId;
+          return (
+            <div
+              key={usecase.id}
+              className="overflow-hidden rounded-3xl border border-white/10 bg-black/40"
+            >
+              <button
+                onClick={() => setActiveUsecaseId(usecase.id)}
+                className={`flex w-full items-center justify-between gap-4 px-4 py-5 text-left transition-colors lg:px-8 ${
+                  isActive ? "bg-white/5" : "hover:bg-white/5"
+                }`}
               >
-                {/* Yellow line indicator */}
-                <div
-                  className={`absolute left-0 top-1/2 h-0.5 -translate-y-1/2 transition-all duration-300 ${
-                    selectedIndex === index
-                      ? "w-full bg-[#FFD700]"
-                      : "w-0 bg-[#FFD700]/0"
-                  }`}
-                />
-
-                {/* Title text */}
+                <div className="flex items-center gap-6">
+                  <span
+                    className={`text-xs font-semibold tracking-[0.4em] ${
+                      isActive ? "text-[#C7FF52]" : "text-white/40"
+                    }`}
+                  >
+                    {usecase.code}
+                  </span>
+                  <p
+                    className={`text-sm uppercase tracking-[0.25em] ${
+                      isActive ? "text-white" : "text-white/70"
+                    }`}
+                  >
+                    {usecase.label}
+                  </p>
+                </div>
                 <span
-                  className={`relative z-10 text-3xl font-bold uppercase transition-all duration-300 cursor-pointer lg:text-4xl xl:text-5xl ${
-                    selectedIndex === index
-                      ? "text-[#FFD700] scale-105"
-                      : "text-white/30 hover:text-white/50"
+                  className={`text-xs uppercase tracking-[0.4em] ${
+                    isActive ? "text-[#C7FF52]" : "text-white/40"
                   }`}
-                  style={{
-                    WebkitTextStroke: "1px currentColor",
-                    WebkitTextFillColor: "transparent",
-                    fontFamily: "Arial, Helvetica, sans-serif",
-                  }}
                 >
-                  {usecase.title}
+                  {isActive ? "Active" : "Expand"}
                 </span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Right Section - Content Display */}
-        <div className="flex w-full flex-col border-l border-dashed border-white/10 p-6 lg:w-[450px] xl:w-[500px] lg:p-8 xl:p-12">
-          <div className="flex h-full flex-col justify-between">
-            {/* Icon */}
-            <div className="mb-6 h-24 w-24 text-[#FFD700] lg:mb-8 lg:h-32 lg:w-32">
-              {usecases[selectedIndex].icon}
-            </div>
-
-            {/* Title with highlight */}
-            <div className="mb-6">
-              <h2
-                className="inline-block bg-[#FFD700] px-4 py-2 text-xl font-bold uppercase text-black lg:text-2xl"
-                style={{
-                  fontFamily: "Arial, Helvetica, sans-serif",
-                }}
+              </button>
+              <div
+                className={`transition-all duration-500 ${
+                  isActive ? "max-h-[1600px] opacity-100" : "max-h-0 opacity-0"
+                }`}
               >
-                {usecases[selectedIndex].title}
-              </h2>
+                {isActive && (
+                  <div className="border-t border-white/5 px-4 pb-8 pt-6 text-left lg:px-8">
+                    <Typography variant="h3" weight="bold" color="white">
+                      {usecase.heading}
+                    </Typography>
+                    <p className="mt-4 max-w-4xl text-sm text-white/70 md:text-base">
+                      {usecase.description}
+                    </p>
+                    <div className="mt-6 grid gap-4 md:grid-cols-3">
+                      {usecase.metrics.map((metric) => (
+                        <div
+                          key={metric.label}
+                          className="rounded-2xl border border-white/10 bg-white/5 px-4 py-5"
+                        >
+                          <p className="text-xs uppercase tracking-[0.3em] text-white/40">
+                            {metric.label}
+                          </p>
+                          <p className="text-2xl font-semibold text-white">
+                            {metric.value}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                    <ul className="mt-6 space-y-3 text-sm text-white/70">
+                      {usecase.bullets.map((bullet) => (
+                        <li key={bullet} className="flex items-start gap-3">
+                          <span className="mt-1 h-2 w-2 rounded-full bg-[#C7FF52]" />
+                          <span>{bullet}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
             </div>
-
-            {/* Description */}
-            <p className="mb-8 text-sm leading-relaxed text-white lg:text-base">
-              {usecases[selectedIndex].description}
-            </p>
-
-            {/* Stats */}
-            <div className="mt-auto space-y-2">
-              <p className="text-4xl font-bold text-white lg:text-5xl">
-                {usecases[selectedIndex].stat}
-              </p>
-              <p className="text-xs uppercase tracking-[0.3em] text-white/50">
-                {usecases[selectedIndex].subLabel}
-              </p>
-            </div>
-          </div>
-        </div>
+          );
+        })}
       </div>
     </div>
   );
