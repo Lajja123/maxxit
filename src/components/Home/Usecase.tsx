@@ -72,7 +72,14 @@ const usecases = [
         <g stroke="#FFD700" strokeWidth="2" fill="#FFD700">
           <path d="M100 30 L160 70 L160 130 Q160 170 100 170 Q40 170 40 130 L40 70 Z" />
           <rect x="70" y="90" width="60" height="40" rx="4" fill="#000" />
-          <line x1="85" y1="110" x2="115" y2="110" stroke="#FFD700" strokeWidth="2" />
+          <line
+            x1="85"
+            y1="110"
+            x2="115"
+            y2="110"
+            stroke="#FFD700"
+            strokeWidth="2"
+          />
         </g>
       </svg>
     ),
@@ -168,7 +175,7 @@ function Usecase() {
                       : "w-0 bg-[#FFD700]/0"
                   }`}
                 />
-                
+
                 {/* Title text */}
                 <span
                   className={`relative z-10 text-3xl font-bold uppercase transition-all duration-300 cursor-pointer lg:text-4xl xl:text-5xl ${
@@ -179,7 +186,6 @@ function Usecase() {
                   style={{
                     WebkitTextStroke: "1px currentColor",
                     WebkitTextFillColor: "transparent",
-                    textStroke: "1px currentColor",
                     fontFamily: "Arial, Helvetica, sans-serif",
                   }}
                 >
