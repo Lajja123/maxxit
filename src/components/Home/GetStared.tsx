@@ -12,66 +12,73 @@ type DescriptionChunk = {
 type ApproachCard = {
   id: string;
   marquee: [string, string];
+  title: string;
   secondary?: string;
   status?: string;
   description: DescriptionChunk[];
   ctaLabel: string;
   ctaHref?: string;
+  icon: "providers" | "telegram" | "performance";
+  iconAccent: string;
 };
-
-const highlightColor = "#C7FF52";
 
 const approachCards: ApproachCard[] = [
   {
-    id: "transgate",
-    marquee: ["TRANSGATE", "TRANSGATE"],
+    id: "providers",
+    marquee: ["PRO SIGNALS", "PRO SIGNALS"],
+    title: "Subscribe to Proven Signal Providers",
+    icon: "providers",
+    iconAccent: "#8F7BFF",
     description: [
-      { type: "highlight", text: "TRANSGATE" },
       {
         type: "text",
-        text: " is a foundational product that fuses three key technologies: MPC network, interactive zero-knowledge proof system, and the 3P-TLS protocol. The platform shuttles private data from Web2 into Web2 or Web3 targets without leakage.",
+        text: "Follow top-performing X accounts whose strategies are converted into real, actionable signals — not just opinions or sentiment. Each account is ranked by backtested performance and on-chain proof.",
       },
     ],
-    ctaLabel: "Install",
+    ctaLabel: "Follow Providers",
   },
   {
-    id: "transgate-sdk",
-    marquee: ["TRANSGATE SDK", "TRANSGATE"],
+    id: "telegram",
+    marquee: ["TELEGRAM", "ALERTS"],
+    title: "Get Clean, Actionable Signals on Telegram",
+    icon: "telegram",
+    iconAccent: "#55D3C2",
     description: [
-      { type: "text", text: "The included " },
-      { type: "highlight", text: "CLIENT-SDK" },
-      { type: "text", text: " and " },
-      { type: "highlight", text: "SERVER-SDK" },
+      { type: "text", text: "Receive structured, market-tested " },
+      { type: "highlight", text: "signals on Telegram" },
       {
         type: "text",
-        text: " offer low-code integrations that let businesses trust zero-knowledge proofs coming from verified data partners without giving up privacy.",
+        text: " with zero clutter—just clean insight from traders you trust.",
       },
     ],
-    ctaLabel: "Transgate SDK Doc",
+    ctaLabel: "Connect Telegram",
   },
   {
-    id: "schema",
-    marquee: ["SCHEMA", "SCHEMA"],
-    secondary: "Coming soon",
-    status: "Coming soon",
+    id: "performance",
+    marquee: ["PERFORMANCE", "TRUST"],
+    title: "Built for Trust, Driven by Performance",
+    icon: "performance",
+    iconAccent: "#F5C26B",
+    secondary: "Proof-backed",
+    status: "On-chain proof",
     description: [
-      { type: "highlight", text: "SCHEMA" },
+      { type: "highlight", text: "Built for trust" },
       {
         type: "text",
-        text: " is the programmable layer that maps proofs into reusable access policies. Audit-grade templates orchestrate attestations, redactions, and verifier-specific payloads.",
+        text: " and driven by performance so creators earn based on verified outcomes while every signal remains immutable on-chain.",
       },
     ],
-    ctaLabel: "Join Waitlist",
+    ctaLabel: "View Performance",
   },
 ];
 
 const Description: React.FC<{ chunks: DescriptionChunk[] }> = ({ chunks }) => (
-  <p className="text-sm leading-relaxed text-white md:text-base">
+  <p className="text-sm leading-relaxed text-[#050714] md:text-base">
     {chunks.map((chunk, index) =>
       chunk.type === "highlight" ? (
         <span
           key={`${chunk.text}-${index}`}
-          className="bg-[#C7FF52]/30 px-1 font-semibold text-[#C7FF52]"
+          className="bg-[#050714]/10 px-1 font-semibold text-[#050714]"
         >
           {chunk.text}
         </span>
@@ -82,30 +89,122 @@ const Description: React.FC<{ chunks: DescriptionChunk[] }> = ({ chunks }) => (
   </p>
 );
 
-const ApproachGlyph = () => (
-  <svg
-    width="72"
-    height="72"
-    viewBox="0 0 200 200"
-    aria-hidden="true"
-    role="presentation"
-  >
-    <rect x="20" y="20" width="60" height="60" rx="14" fill={highlightColor} />
-    <rect x="120" y="20" width="60" height="60" rx="14" fill={highlightColor} />
-    <rect x="20" y="120" width="60" height="60" rx="14" fill={highlightColor} />
+const ProvidersIcon = ({ accent }: { accent: string }) => (
+  <svg viewBox="0 0 64 64" className="h-14 w-14" aria-hidden>
     <rect
-      x="120"
-      y="120"
+      x="2"
+      y="12"
       width="60"
-      height="60"
-      rx="14"
-      fill={highlightColor}
+      height="40"
+      rx="12"
+      fill={`${accent}1A`}
+      stroke={accent}
+      strokeWidth="2"
     />
-    <rect x="85" y="85" width="30" height="30" rx="8" fill="black" />
-    <rect x="45" y="95" width="110" height="10" rx="5" fill={highlightColor} />
-    <rect x="95" y="45" width="10" height="110" rx="5" fill={highlightColor} />
+    <path
+      d="M18 24L28 32L18 40"
+      stroke={accent}
+      strokeWidth="2.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M32 24H46"
+      stroke={accent}
+      strokeWidth="2.5"
+      strokeLinecap="round"
+    />
+    <path
+      d="M32 32H46"
+      stroke={accent}
+      strokeWidth="2.5"
+      strokeLinecap="round"
+    />
+    <path
+      d="M32 40H46"
+      stroke={accent}
+      strokeWidth="2.5"
+      strokeLinecap="round"
+    />
   </svg>
 );
+
+const TelegramIcon = ({ accent }: { accent: string }) => (
+  <svg viewBox="0 0 64 64" className="h-14 w-14" aria-hidden>
+    <circle
+      cx="32"
+      cy="32"
+      r="28"
+      fill={`${accent}1A`}
+      stroke={accent}
+      strokeWidth="2"
+    />
+    <path
+      d="M18 32L46 18L40 46L30 36L24 42L22 30L18 32Z"
+      fill="white"
+      stroke={accent}
+      strokeWidth="2"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+const PerformanceIcon = ({ accent }: { accent: string }) => (
+  <svg viewBox="0 0 64 64" className="h-14 w-14" aria-hidden>
+    <rect
+      x="10"
+      y="22"
+      width="44"
+      height="32"
+      rx="10"
+      fill={`${accent}1A`}
+      stroke={accent}
+      strokeWidth="2"
+    />
+    <path
+      d="M24 30V22C24 16.48 28.48 12 34 12C39.52 12 44 16.48 44 22V30"
+      stroke={accent}
+      strokeWidth="2.5"
+      strokeLinecap="round"
+    />
+    <circle
+      cx="34"
+      cy="40"
+      r="6"
+      stroke={accent}
+      strokeWidth="2.5"
+      fill="white"
+    />
+    <path
+      d="M34 36V41L37 43"
+      stroke={accent}
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+const CardIcon = ({
+  variant,
+  accent,
+}: {
+  variant: ApproachCard["icon"];
+  accent: string;
+}) => {
+  const baseClass =
+    "inline-flex h-20 w-20 items-center justify-center rounded-2xl border border-[#050714]/10 bg-white shadow-[0_12px_45px_rgba(5,7,20,0.08)]";
+  return (
+    <span
+      className={baseClass}
+      style={{ boxShadow: `0 15px 55px ${accent}33` }}
+    >
+      {variant === "providers" && <ProvidersIcon accent={accent} />}
+      {variant === "telegram" && <TelegramIcon accent={accent} />}
+      {variant === "performance" && <PerformanceIcon accent={accent} />}
+    </span>
+  );
+};
 
 function GetStarted() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -113,25 +212,34 @@ function GetStarted() {
 
   return (
     <>
-      <section className="relative overflow-hidden bg-black px-4 py-20 text-white sm:px-10 lg:px-16">
+      <section className="relative overflow-hidden bg-white px-4 py-20 text-[#050714] sm:px-10 lg:px-16">
         <div className="pointer-events-none absolute inset-0 opacity-40">
           <div
             className="absolute inset-0"
             style={{
               backgroundImage:
-                "linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(180deg, rgba(255,255,255,0.04) 1px, transparent 1px)",
+                "linear-gradient(90deg, rgba(5,7,20,0.04) 1px, transparent 1px), linear-gradient(180deg, rgba(5,7,20,0.04) 1px, transparent 1px)",
               backgroundSize: "120px 120px",
             }}
           />
-          <div className="absolute left-1/2 top-10 h-72 w-72 -translate-x-1/2 rounded-full bg-[#C7FF52]/10 blur-[150px]" />
+          <div className="absolute left-1/2 top-10 h-72 w-72 -translate-x-1/2 rounded-full bg-[#050714]/5 blur-[150px]" />
         </div>
-
+        <div className="relative z-10 mb-12 flex flex-col items-center gap-4 text-center">
+          <span className="inline-flex items-center gap-2 rounded-full border border-[#050714]/15 bg-white/70 px-6 py-2 text-[10px] uppercase tracking-[0.4em] text-[#050714]/60">
+            <span className="h-1.5 w-1.5 rounded-full bg-[#050714]" />
+            Signal Stack
+          </span>
+          <Typography variant="h2" color="#050714" weight="bold">
+            UseCase
+          </Typography>
+          <p className="max-w-3xl text-sm text-[#050714]/65 md:text-base">
+            Move from raw alpha to automation-ready signals with the same crisp
+            styling as our hero—structured, trustworthy, and easy to scan.
+          </p>
+        </div>
         <div className="relative z-10 grid gap-12 lg:grid-cols-[minmax(0,1.6fr)_minmax(320px,1fr)]">
           <div>
-            <Typography variant="h5" color="white" weight="bold">
-              Get started
-            </Typography>
-            <div className="mt-8 space-y-6">
+            <div className="">
               {approachCards.map((card, index) => {
                 const isActive = activeIndex === index;
                 return (
@@ -143,8 +251,8 @@ function GetStarted() {
                       onFocus={() => setActiveIndex(index)}
                       className={`w-full overflow-hidden rounded-[32px] border text-left transition ${
                         isActive
-                          ? "border-none bg-[#C7FF52] text-black shadow-[0_20px_80px_rgba(199,255,82,0.3)]"
-                          : "border-white/10 bg-transparent text-white/30 hover:border-white/30"
+                          ? "border-none bg-[#050714] text-white shadow-[0_20px_80px_rgba(5,7,20,0.25)]"
+                          : "border-black/10 bg-white text-black/50 hover:border-black/30"
                       }`}
                     >
                       <div className="overflow-hidden px-6 py-8">
@@ -167,7 +275,7 @@ function GetStarted() {
                       </div>
                     </button>
                     {card.secondary && (
-                      <p className="text-xs uppercase tracking-[0.3em] text-white/40">
+                      <p className="text-xs uppercase tracking-[0.3em] text-black/50">
                         {card.secondary}
                       </p>
                     )}
@@ -177,12 +285,15 @@ function GetStarted() {
             </div>
           </div>
 
-          <div className="relative rounded-[32px] border border-white/10 bg-[#050506] p-8 shadow-[0_25px_120px_rgba(0,0,0,0.65)]">
-            <div className="flex items-center justify-between border-b border-white/10 pb-6">
-              <ApproachGlyph />
+          <div className="relative rounded-[32px] border border-black/10 bg-white p-8 text-[#050714] shadow-[0_25px_120px_rgba(5,7,20,0.08)]">
+            <div className="flex items-center justify-between border-b border-black/10 pb-6">
+              <CardIcon
+                variant={activeCard.icon}
+                accent={activeCard.iconAccent}
+              />
               <button
                 type="button"
-                className="text-2xl text-white/40 transition hover:text-white"
+                className="text-2xl text-black/40 transition hover:text-black"
                 onClick={() =>
                   setActiveIndex((prev) => (prev + 1) % approachCards.length)
                 }
@@ -191,16 +302,23 @@ function GetStarted() {
                 +
               </button>
             </div>
-            <div className="mt-6 space-y-6">
+            <div className="mt-6 space-y-6 text-center">
+              <Typography
+                variant="h4"
+                className="text-[#050714]"
+                align="center"
+              >
+                {activeCard.title}
+              </Typography>
               <Description chunks={activeCard.description} />
               {activeCard.status && (
-                <p className="text-xs uppercase tracking-[0.4em] text-white/40">
+                <p className="text-xs uppercase tracking-[0.4em] text-black/40">
                   {activeCard.status}
                 </p>
               )}
               <button
                 type="button"
-                className="mt-4 inline-flex items-center justify-center rounded-full border border-white/30 px-6 py-3 text-xs uppercase tracking-[0.35em] text-white transition hover:border-white hover:bg-white hover:text-black"
+                className="mt-4 inline-flex items-center justify-center rounded-full border border-black/20 px-6 py-3 text-xs uppercase tracking-[0.35em] text-[#050714] transition hover:border-black hover:bg-black hover:text-white"
               >
                 {activeCard.ctaLabel}
               </button>

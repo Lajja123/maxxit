@@ -139,72 +139,73 @@ function Signals() {
   }, []);
 
   return (
-    <section className="relative overflow-hidden bg-[#020203] px-4 py-20 text-white sm:px-10 lg:px-16">
-      <div className="pointer-events-none absolute inset-0 opacity-10">
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage:
-              "linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(180deg, rgba(255,255,255,0.04) 1px, transparent 1px)",
-            backgroundSize: "140px 140px",
-          }}
-        />
-      </div>
+    // <section className="relative overflow-hidden bg-[#020203] px-4 py-20 text-white sm:px-10 lg:px-16">
+    //   <div className="pointer-events-none absolute inset-0 opacity-10">
+    //     <div
+    //       className="absolute inset-0"
+    //       style={{
+    //         backgroundImage:
+    //           "linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(180deg, rgba(255,255,255,0.04) 1px, transparent 1px)",
+    //         backgroundSize: "140px 140px",
+    //       }}
+    //     />
+    //   </div>
 
-      <div className="relative z-10 space-y-12">
-        <Typography variant="h5" color="white" weight="bold">
-          Top weekly signal provider
-        </Typography>
-        <div className="grid gap-10 rounded-[36px] border border-white/10 bg-black/70 p-8 shadow-[0_25px_100px_rgba(0,0,0,0.6)] lg:grid-cols-[minmax(0,1fr)_320px]">
-          <div ref={marqueeRef} className="flex gap-6 overflow-hidden pb-4">
-            {extendedSignals.map((signal, index) => (
-              <SignalCardItem signal={signal} key={`${signal.id}-${index}`} />
-            ))}
-          </div>
+    //   <div className="relative z-10 space-y-12">
+    //     <Typography variant="h5" color="white" weight="bold">
+    //       Top weekly signal provider
+    //     </Typography>
+    //     <div className="grid gap-10 rounded-[36px] border border-white/10 bg-black/70 p-8 shadow-[0_25px_100px_rgba(0,0,0,0.6)] lg:grid-cols-[minmax(0,1fr)_320px]">
+    //       <div ref={marqueeRef} className="flex gap-6 overflow-hidden pb-4">
+    //         {extendedSignals.map((signal, index) => (
+    //           <SignalCardItem signal={signal} key={`${signal.id}-${index}`} />
+    //         ))}
+    //       </div>
 
-          <div className="rounded-[28px] border border-white/10 bg-white/5 p-6 text-white">
-            <p className="text-xs uppercase tracking-[0.5em] text-white/60">
-              Signals
-            </p>
-            <Typography
-              variant="h4"
-              color="white"
-              weight="bold"
-              className="mt-4 font-['Space_Grotesk',monospace] uppercase tracking-[0.3em]"
-            >
-              We work with the best
-            </Typography>
-            <p className="mt-4 text-sm text-white/80">
-              The most accurate Twitter operators surface here. Cards loop
-              forever, keeping the carousel alive without manual scrolling.
-            </p>
-            <div className="mt-6 flex items-center justify-between gap-4">
-              <p className="text-xs uppercase tracking-[0.35em] text-white/50">
-                Auto scrolling · tap cards to inspect
-              </p>
-              <div className="flex items-center gap-2">
-                <button
-                  type="button"
-                  onClick={() => handleArrowScroll("prev")}
-                  className="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 text-white/70 transition hover:border-white/60 hover:text-white"
-                  aria-label="Previous signals"
-                >
-                  &lsaquo;
-                </button>
-                <button
-                  type="button"
-                  onClick={() => handleArrowScroll("next")}
-                  className="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 text-white/70 transition hover:border-white/60 hover:text-white"
-                  aria-label="Next signals"
-                >
-                  &rsaquo;
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    //       <div className="rounded-[28px] border border-white/10 bg-white/5 p-6 text-white">
+    //         <p className="text-xs uppercase tracking-[0.5em] text-white/60">
+    //           Signals
+    //         </p>
+    //         <Typography
+    //           variant="h4"
+    //           color="white"
+    //           weight="bold"
+    //           className="mt-4 font-['Space_Grotesk',monospace] uppercase tracking-[0.3em]"
+    //         >
+    //           We work with the best
+    //         </Typography>
+    //         <p className="mt-4 text-sm text-white/80">
+    //           The most accurate Twitter operators surface here. Cards loop
+    //           forever, keeping the carousel alive without manual scrolling.
+    //         </p>
+    //         <div className="mt-6 flex items-center justify-between gap-4">
+    //           <p className="text-xs uppercase tracking-[0.35em] text-white/50">
+    //             Auto scrolling · tap cards to inspect
+    //           </p>
+    //           <div className="flex items-center gap-2">
+    //             <button
+    //               type="button"
+    //               onClick={() => handleArrowScroll("prev")}
+    //               className="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 text-white/70 transition hover:border-white/60 hover:text-white"
+    //               aria-label="Previous signals"
+    //             >
+    //               &lsaquo;
+    //             </button>
+    //             <button
+    //               type="button"
+    //               onClick={() => handleArrowScroll("next")}
+    //               className="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 text-white/70 transition hover:border-white/60 hover:text-white"
+    //               aria-label="Next signals"
+    //             >
+    //               &rsaquo;
+    //             </button>
+    //           </div>
+    //         </div>
+    //       </div>
+    //     </div>
+    //   </div>
+    // </section>
+    <div>Hello</div>
   );
 }
 

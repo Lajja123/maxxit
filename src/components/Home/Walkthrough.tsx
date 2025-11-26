@@ -310,90 +310,91 @@ function Walkthrough() {
   );
 
   return (
-    <section
-      ref={containerRef}
-      className="relative isolate overflow-hidden bg-[#030304] px-4 py-24 text-white sm:px-10 lg:px-16"
-    >
-      <div className="pointer-events-none absolute inset-0">
-        <div
-          className="absolute inset-0 opacity-60"
-          style={{
-            backgroundImage:
-              "linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(180deg, rgba(255,255,255,0.04) 1px, transparent 1px)",
-            backgroundSize: "120px 120px",
-          }}
-        />
-        <div className="absolute left-1/2 top-10 h-96 w-96 -translate-x-1/2 rounded-full bg-[#C7FF52]/10 blur-[150px]" />
-      </div>
+    // <section
+    //   ref={containerRef}
+    //   className="relative isolate overflow-hidden bg-[#030304] px-4 py-24 text-white sm:px-10 lg:px-16"
+    // >
+    //   <div className="pointer-events-none absolute inset-0">
+    //     <div
+    //       className="absolute inset-0 opacity-60"
+    //       style={{
+    //         backgroundImage:
+    //           "linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(180deg, rgba(255,255,255,0.04) 1px, transparent 1px)",
+    //         backgroundSize: "120px 120px",
+    //       }}
+    //     />
+    //     <div className="absolute left-1/2 top-10 h-96 w-96 -translate-x-1/2 rounded-full bg-[#C7FF52]/10 blur-[150px]" />
+    //   </div>
 
-      <div className="relative z-10 mx-auto flex min-h-screen max-w-6xl flex-col justify-center gap-16 lg:flex-row lg:items-center lg:gap-28">
-        <div className="flex flex-1 flex-col gap-10">
-          <Typography variant="h5" color="white" weight="bold">
-            Maxxit walkthrough
-          </Typography>
-          <div className="flex items-center gap-6">
-            <div className="grid grid-cols-3 gap-1.5">
-              {Array.from({ length: dotTotal }).map((_, index) => (
-                <span
-                  key={index}
-                  className={`h-2 w-2 rounded-full ${
-                    index < currentIndex + 1 ? "bg-[#C7FF52]" : "bg-white/20"
-                  }`}
-                />
-              ))}
-            </div>
-            <p className="text-xs uppercase tracking-[0.5em] text-white/50">
-              {activeStep.badge}
-            </p>
-          </div>
+    //   <div className="relative z-10 mx-auto flex min-h-screen max-w-6xl flex-col justify-center gap-16 lg:flex-row lg:items-center lg:gap-28">
+    //     <div className="flex flex-1 flex-col gap-10">
+    //       <Typography variant="h5" color="white" weight="bold">
+    //         Maxxit walkthrough
+    //       </Typography>
+    //       <div className="flex items-center gap-6">
+    //         <div className="grid grid-cols-3 gap-1.5">
+    //           {Array.from({ length: dotTotal }).map((_, index) => (
+    //             <span
+    //               key={index}
+    //               className={`h-2 w-2 rounded-full ${
+    //                 index < currentIndex + 1 ? "bg-[#C7FF52]" : "bg-white/20"
+    //               }`}
+    //             />
+    //           ))}
+    //         </div>
+    //         <p className="text-xs uppercase tracking-[0.5em] text-white/50">
+    //           {activeStep.badge}
+    //         </p>
+    //       </div>
 
-          <div>
-            <Typography
-              variant="h1"
-              color="white"
-              weight="semibold"
-              className="text-[clamp(56px,8vw,120px)] tracking-[0.2em]"
-            >
-              TLS
-            </Typography>
-            <div className="mt-8 flex items-center gap-4 text-xs uppercase tracking-[0.6em] text-white/40">
-              <span>{activeStep.code}</span>
-              <span className="h-px flex-1 bg-white/10" />
-              <span>{activeStep.label}</span>
-            </div>
-            <p className="mt-8 max-w-2xl font-mono text-[12px] uppercase leading-relaxed tracking-[0.25em] text-white">
-              {activeStep.summary}
-            </p>
-          </div>
+    //       <div>
+    //         <Typography
+    //           variant="h1"
+    //           color="white"
+    //           weight="semibold"
+    //           className="text-[clamp(56px,8vw,120px)] tracking-[0.2em]"
+    //         >
+    //           TLS
+    //         </Typography>
+    //         <div className="mt-8 flex items-center gap-4 text-xs uppercase tracking-[0.6em] text-white/40">
+    //           <span>{activeStep.code}</span>
+    //           <span className="h-px flex-1 bg-white/10" />
+    //           <span>{activeStep.label}</span>
+    //         </div>
+    //         <p className="mt-8 max-w-2xl font-mono text-[12px] uppercase leading-relaxed tracking-[0.25em] text-white">
+    //           {activeStep.summary}
+    //         </p>
+    //       </div>
 
-          <div className="space-y-4 text-white/70">
-            <p className="text-xs uppercase tracking-[0.35em]">Highlights</p>
-            <div className="grid gap-3 sm:grid-cols-2">
-              {activeStep.highlights.map((highlight) => (
-                <div
-                  key={highlight}
-                  className="rounded-2xl border border-white/10 bg-white/2 px-4 py-3 text-[11px] uppercase tracking-[0.35em] text-white/70"
-                >
-                  {highlight}
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+    //       <div className="space-y-4 text-white/70">
+    //         <p className="text-xs uppercase tracking-[0.35em]">Highlights</p>
+    //         <div className="grid gap-3 sm:grid-cols-2">
+    //           {activeStep.highlights.map((highlight) => (
+    //             <div
+    //               key={highlight}
+    //               className="rounded-2xl border border-white/10 bg-white/2 px-4 py-3 text-[11px] uppercase tracking-[0.35em] text-white/70"
+    //             >
+    //               {highlight}
+    //             </div>
+    //           ))}
+    //         </div>
+    //       </div>
+    //     </div>
 
-        <div className="flex flex-1 items-center justify-center">
-          <div className="relative flex h-[420px] w-[420px] items-center justify-center rounded-[48px] border border-white/5 bg-black/60 shadow-[0_30px_120px_rgba(0,0,0,0.45)]">
-            <div className="absolute inset-6 rounded-[36px] border border-white/5 bg-black/80" />
-            <div className="relative z-10 flex flex-col items-center gap-8">
-              <GlyphIcon color={activeStep.accent} />
-              <p className="text-xs uppercase tracking-[0.35em] text-white/40">
-                {lockScroll ? "Hold" : "Release"}
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    //     <div className="flex flex-1 items-center justify-center">
+    //       <div className="relative flex h-[420px] w-[420px] items-center justify-center rounded-[48px] border border-white/5 bg-black/60 shadow-[0_30px_120px_rgba(0,0,0,0.45)]">
+    //         <div className="absolute inset-6 rounded-[36px] border border-white/5 bg-black/80" />
+    //         <div className="relative z-10 flex flex-col items-center gap-8">
+    //           <GlyphIcon color={activeStep.accent} />
+    //           <p className="text-xs uppercase tracking-[0.35em] text-white/40">
+    //             {lockScroll ? "Hold" : "Release"}
+    //           </p>
+    //         </div>
+    //       </div>
+    //     </div>
+    //   </div>
+    // </section>
+    <div>Hello</div>
   );
 }
 

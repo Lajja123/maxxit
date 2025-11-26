@@ -83,7 +83,7 @@ function Usecase() {
   const [activeUsecaseId, setActiveUsecaseId] = useState(usecases[0].id);
 
   return (
-    <div className="relative overflow-hidden rounded-[32px] border border-white/10 bg-black/60 px-6 py-12 text-white shadow-[0_20px_120px_rgba(7,10,18,0.8)] sm:px-10 lg:px-16 lg:py-16">
+    <div className="relative   px-6 py-12 sm:px-10 lg:px-16 lg:py-16">
       <div className="pointer-events-none absolute inset-0 opacity-40">
         <div
           className="absolute inset-0"
