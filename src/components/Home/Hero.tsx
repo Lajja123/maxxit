@@ -112,12 +112,72 @@ const AnimatedArc: React.FC<AnimatedArcProps> = ({ targetRef }) => {
 
 const Hero = () => {
   const heroRef = useRef<HTMLElement | null>(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const [{ x, y }, setPointerOffset] = useState({ x: 0, y: 0 });
+  const [isInteracting, setIsInteracting] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined" || !heroRef.current) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+            observer.disconnect();
+          }
+        });
+      },
+      { threshold: 0.35 }
+    );
+
+    observer.observe(heroRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  const handlePointerMove = (event: React.PointerEvent<HTMLElement>) => {
+    if (!heroRef.current) return;
+    const rect = heroRef.current.getBoundingClientRect();
+    const offsetX = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
+    const offsetY = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
+    setPointerOffset({ x: offsetX, y: offsetY });
+    setIsInteracting(true);
+  };
+
+  const handlePointerLeave = () => {
+    setIsInteracting(false);
+    setPointerOffset({ x: 0, y: 0 });
+  };
+
+  const parallaxStyle = (depth = 10) => ({
+    transform: `translate3d(${x * depth}px, ${y * depth}px, 0)`,
+    transition: isInteracting
+      ? "transform 80ms ease-out"
+      : "transform 400ms ease",
+  });
+
+  const glowStyle = {
+    opacity: isInteracting ? 0.85 : 0,
+    transform: `translate3d(${x * 60}px, ${y * 40}px, 0)`,
+    transition: isInteracting
+      ? "transform 80ms ease-out"
+      : "transform 600ms ease, opacity 500ms ease",
+  };
 
   return (
-    <section ref={heroRef} className="relative overflow-hidden  text-[#050714]">
+    <section
+      ref={heroRef}
+      className="relative overflow-hidden text-[#050714]"
+      onPointerMove={handlePointerMove}
+      onPointerLeave={handlePointerLeave}
+    >
       {/* <AnimatedArc targetRef={heroRef} /> */}
 
-      <div className="relative z-10 mx-auto flex w-full flex-col gap-10 px-6 pb-28 pt-28 sm:px-10 lg:px-0">
+      <div
+        className={`relative z-10 mx-auto flex w-full flex-col gap-10 px-6 pb-28 pt-28 transition-all duration-700 ease-out sm:px-10 lg:px-0 ${
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+        }`}
+      >
         <Typography
           variant="h1"
           className="text-center  font-medium leading-[0.92] text-[#050714]"
@@ -130,7 +190,12 @@ const Hero = () => {
             Proven Intelligence
           </span>
         </Typography>
-        <div className="flex flex-raw gap-7 justify-around ">
+        <div
+          className={`flex flex-raw justify-around gap-7 transition-all duration-700 delay-100 ${
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+          }`}
+          style={parallaxStyle(12)}
+        >
           <div className="w-[30%]">
             <Image
               src={heroClip}
@@ -139,7 +204,7 @@ const Hero = () => {
               className="h-full w-full object-cover"
             />
           </div>
-          <div className="flex flex-col gap-7">
+          <div className="flex flex-col gap-7" style={parallaxStyle(18)}>
             <Typography
               variant="h6"
               className="text-center text-base font-medium leading-relaxed text-[#050714] max-w-2xl mx-auto"
@@ -154,7 +219,14 @@ const Hero = () => {
               real-time crypto insights.
             </Typography>
 
-            <div className="flex gap-4">
+            <div
+              className={`flex gap-4 transition-all duration-700 delay-200 ${
+                isVisible
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-3"
+              }`}
+              style={parallaxStyle(8)}
+            >
               <Button
                 variant="black"
                 paddingX="px-7"

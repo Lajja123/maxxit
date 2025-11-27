@@ -2,10 +2,10 @@
 
 import React, { useEffect, useMemo, useState } from "react";
 
-import GetStarted from "@/components/Home/GetStared";
+import GetStarted from "@/components/Home/Usecase";
 import Hero from "@/components/Home/Hero";
 import Signals from "@/components/Home/Signals";
-import Usecase from "@/components/Home/Usecase";
+import Usecase from "@/components/Home/GetStarted";
 import Walkthrough from "@/components/Home/Walkthrough";
 
 const sectionsConfig = [
@@ -70,6 +70,9 @@ function Homepage() {
     <div className="relative  text-white">
       <Hero />
       <GetStarted />
+      <Walkthrough />
+      <Signals />
+      <Usecase />
     </div>
   );
 }

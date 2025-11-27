@@ -139,73 +139,79 @@ function Signals() {
   }, []);
 
   return (
-    // <section className="relative overflow-hidden bg-[#020203] px-4 py-20 text-white sm:px-10 lg:px-16">
-    //   <div className="pointer-events-none absolute inset-0 opacity-10">
-    //     <div
-    //       className="absolute inset-0"
-    //       style={{
-    //         backgroundImage:
-    //           "linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(180deg, rgba(255,255,255,0.04) 1px, transparent 1px)",
-    //         backgroundSize: "140px 140px",
-    //       }}
-    //     />
-    //   </div>
+    <section className="relative overflow-hidden px-4 py-20 text-white sm:px-10 lg:px-16">
+      <div className="pointer-events-none absolute inset-0 opacity-10">
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage:
+              "linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(180deg, rgba(255,255,255,0.04) 1px, transparent 1px)",
+            backgroundSize: "140px 140px",
+          }}
+        />
+      </div>
+      <div className="relative z-10 mb-12 flex flex-col items-center gap-4 text-center">
+        <span className="inline-flex items-center gap-2 rounded-full border border-[#050714]/15 bg-white/70 px-6 py-2 text-[10px] uppercase tracking-[0.4em] text-[#050714]/60">
+          <span className="h-1.5 w-1.5 rounded-full bg-[#050714]" />
+          Signal Stack
+        </span>
+        <Typography variant="h2" color="#050714" weight="bold">
+          UseCase
+        </Typography>
+        <p className="max-w-3xl text-sm text-[#050714]/65 md:text-base">
+          Move from raw alpha to automation-ready signals with the same crisp
+          styling as our hero—structured, trustworthy, and easy to scan.
+        </p>
+      </div>
 
-    //   <div className="relative z-10 space-y-12">
-    //     <Typography variant="h5" color="white" weight="bold">
-    //       Top weekly signal provider
-    //     </Typography>
-    //     <div className="grid gap-10 rounded-[36px] border border-white/10 bg-black/70 p-8 shadow-[0_25px_100px_rgba(0,0,0,0.6)] lg:grid-cols-[minmax(0,1fr)_320px]">
-    //       <div ref={marqueeRef} className="flex gap-6 overflow-hidden pb-4">
-    //         {extendedSignals.map((signal, index) => (
-    //           <SignalCardItem signal={signal} key={`${signal.id}-${index}`} />
-    //         ))}
-    //       </div>
+      <div className="relative z-10 space-y-12">
+        <div className="grid gap-10 rounded-[36px] border border-white/10 bg-white/70 p-8 shadow-[0_25px_100px_rgba(0,0,0,0.6)] lg:grid-cols-[minmax(0,1fr)_320px]">
+          <div ref={marqueeRef} className="flex gap-6 overflow-hidden pb-4">
+            {extendedSignals.map((signal, index) => (
+              <SignalCardItem signal={signal} key={`${signal.id}-${index}`} />
+            ))}
+          </div>
 
-    //       <div className="rounded-[28px] border border-white/10 bg-white/5 p-6 text-white">
-    //         <p className="text-xs uppercase tracking-[0.5em] text-white/60">
-    //           Signals
-    //         </p>
-    //         <Typography
-    //           variant="h4"
-    //           color="white"
-    //           weight="bold"
-    //           className="mt-4 font-['Space_Grotesk',monospace] uppercase tracking-[0.3em]"
-    //         >
-    //           We work with the best
-    //         </Typography>
-    //         <p className="mt-4 text-sm text-white/80">
-    //           The most accurate Twitter operators surface here. Cards loop
-    //           forever, keeping the carousel alive without manual scrolling.
-    //         </p>
-    //         <div className="mt-6 flex items-center justify-between gap-4">
-    //           <p className="text-xs uppercase tracking-[0.35em] text-white/50">
-    //             Auto scrolling · tap cards to inspect
-    //           </p>
-    //           <div className="flex items-center gap-2">
-    //             <button
-    //               type="button"
-    //               onClick={() => handleArrowScroll("prev")}
-    //               className="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 text-white/70 transition hover:border-white/60 hover:text-white"
-    //               aria-label="Previous signals"
-    //             >
-    //               &lsaquo;
-    //             </button>
-    //             <button
-    //               type="button"
-    //               onClick={() => handleArrowScroll("next")}
-    //               className="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 text-white/70 transition hover:border-white/60 hover:text-white"
-    //               aria-label="Next signals"
-    //             >
-    //               &rsaquo;
-    //             </button>
-    //           </div>
-    //         </div>
-    //       </div>
-    //     </div>
-    //   </div>
-    // </section>
-    <div>Hello</div>
+          <div className="rounded-[28px] border border-white/10 bg-black p-6 text-black">
+            <p className="text-xs uppercase tracking-[0.5em] text-black/60">
+              Signals
+            </p>
+            <Typography
+              variant="h4"
+              color="white"
+              weight="bold"
+              className="mt-4 font-['Space_Grotesk',monospace] uppercase tracking-[0.3em]"
+            >
+              We work with the best
+            </Typography>
+            <p className="mt-4 text-sm text-white/80">
+              The most accurate Twitter operators surface here. Cards loop
+              forever, keeping the carousel alive without manual scrolling.
+            </p>
+            <div className="mt-6 flex items-center justify-between gap-4">
+              <div className="flex items-center gap-8">
+                <button
+                  type="button"
+                  onClick={() => handleArrowScroll("prev")}
+                  className="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 text-white/70 transition hover:border-white/60 hover:text-white"
+                  aria-label="Previous signals"
+                >
+                  &lsaquo;
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleArrowScroll("next")}
+                  className="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 text-white/70 transition hover:border-white/60 hover:text-white"
+                  aria-label="Next signals"
+                >
+                  &rsaquo;
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -215,7 +221,7 @@ type SignalCardItemProps = {
 
 const SignalCardItem: React.FC<SignalCardItemProps> = ({ signal }) => {
   return (
-    <div className="min-w-[280px] max-w-[320px] flex-none rounded-[32px] border border-white/5 bg-[#080a11] p-6 text-white shadow-[0_20px_80px_rgba(0,0,0,0.45)]">
+    <div className="min-w-[280px] max-w-[320px] flex-none rounded-[32px] border border-white/5 bg-[#080a11] p-6 text-white ">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <span
