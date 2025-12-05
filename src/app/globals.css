@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #09090e;
-  --foreground: #ffffff;
+  --background: #ffffff;
+  --foreground: #09090e;
 }
 
 @theme inline {
@@ -27,7 +27,7 @@
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -125,4 +125,280 @@ body {
   100% {
     transform: translateX(-33.333%);
   }
+}
+.font-mori {
+  font-family: var(--font-Aeonik-Bold), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Arial, sans-serif;
+}
+
+.font-bohemian {
+  font-family: var(--font-Aeonik-Regular), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Arial, sans-serif;
+}
+
+/* Hero Section Animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.05);
+  }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.8s ease-out forwards;
+}
+
+.animate-slide-up {
+  animation: slide-up 0.8s ease-out forwards;
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 4s ease-in-out infinite;
+}
+
+/* Floating particle animation for Why Choose section */
+@keyframes float-particle {
+  0% {
+    transform: translateY(100vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.animate-float-particle {
+  animation: float-particle 10s ease-in-out infinite;
+}
+
+/* 3D Spiral animation */
+@keyframes spin-slow {
+  0% {
+    transform: rotate(0deg) rotateX(60deg);
+  }
+  100% {
+    transform: rotate(360deg) rotateX(60deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+  transform-style: preserve-3d;
+}
+
+/* ===== SCROLL & BLUR REVEAL ANIMATIONS ===== */
+
+/* Text Blur Reveal Animation */
+@keyframes blur-reveal {
+  0% {
+    opacity: 0;
+    filter: blur(20px);
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0px);
+    transform: translateY(0);
+  }
+}
+
+@keyframes blur-reveal-left {
+  0% {
+    opacity: 0;
+    filter: blur(15px);
+    transform: translateX(-30px);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0px);
+    transform: translateX(0);
+  }
+}
+
+@keyframes blur-reveal-right {
+  0% {
+    opacity: 0;
+    filter: blur(15px);
+    transform: translateX(30px);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0px);
+    transform: translateX(0);
+  }
+}
+
+@keyframes blur-reveal-scale {
+  0% {
+    opacity: 0;
+    filter: blur(10px);
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0px);
+    transform: scale(1);
+  }
+}
+
+/* Scroll-triggered slide animations */
+@keyframes scroll-slide-up {
+  0% {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scroll-slide-down {
+  0% {
+    opacity: 0;
+    transform: translateY(-60px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Word by word reveal */
+@keyframes word-reveal {
+  0% {
+    opacity: 0;
+    filter: blur(8px);
+    transform: translateY(100%);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
+/* Character reveal for titles */
+@keyframes char-reveal {
+  0% {
+    opacity: 0;
+    filter: blur(10px);
+    transform: translateY(50px) rotateX(-90deg);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0) rotateX(0deg);
+  }
+}
+
+/* Animation classes - Initial states (before animation) */
+.scroll-hidden {
+  opacity: 0;
+}
+
+/* Animation classes - Active states */
+.animate-blur-reveal {
+  animation: blur-reveal 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.animate-blur-reveal-left {
+  animation: blur-reveal-left 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.animate-blur-reveal-right {
+  animation: blur-reveal-right 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.animate-blur-reveal-scale {
+  animation: blur-reveal-scale 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.animate-scroll-slide-up {
+  animation: scroll-slide-up 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.animate-scroll-slide-down {
+  animation: scroll-slide-down 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.animate-word-reveal {
+  animation: word-reveal 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.animate-char-reveal {
+  animation: char-reveal 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+/* Utility for perspective on 3D animations */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+/* Stagger delay utilities */
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+.stagger-5 { animation-delay: 0.5s; }
+.stagger-6 { animation-delay: 0.6s; }
+.stagger-7 { animation-delay: 0.7s; }
+.stagger-8 { animation-delay: 0.8s; }
+
+/* Shine animation for walkthrough line */
+@keyframes shine {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(400%);
+  }
+}
+
+.animate-shine {
+  animation: shine 2s ease-in-out infinite;
 }

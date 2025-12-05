@@ -18,7 +18,7 @@ interface ButtonProps {
 const getVariantStyles = (variant: string) => {
   const variants = {
     white:
-      "bg-[#FFFFFF] border-[#222222] text-[#1A1A1A] hover:bg-[#FF6A00]  rounded-full border",
+      "bg-[#FFFFFF] border-[#222222] text-[#1A1A1A] hover:bg-[#FF6A00]  rounded-full border hover:text-white",
     black: "bg-[#222222] border-[#222222] text-white hover:bg-[#FF6A00] ",
   };
 
@@ -41,7 +41,7 @@ export const Button: React.FC<ButtonProps> = ({
 
   ...props
 }) => {
-  const baseStyles = `group inline-flex items-center justify-center gap-3 p-4 rounded-full border transition-colors duration-300 ease-out text-sm sm:text-sm md:text-sm 2xl:text-base leading-none tracking-wide overflow-hidden`;
+  const baseStyles = `font-bohemian group inline-flex items-center justify-center gap-3 p-4 rounded-full border transition-colors duration-300 ease-out text-sm sm:text-sm md:text-sm 2xl:text-base leading-none tracking-wide overflow-hidden`;
 
   const variantStyles = getVariantStyles(variant);
   const disabledStyles = disabled

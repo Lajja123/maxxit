@@ -1,254 +1,258 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
-import Image from "next/image";
-import Lenis from "lenis";
-import Button from "../UI/Button";
-import Typography from "../UI/Typography";
-import heroClip from "@/assests/home/hero-clip.png";
+import React from "react";
+import Button from "@/components/UI/Button";
+import Typography from "@/theme/Typography";
+import { ScrollReveal } from "@/components/UI/AnimatedText";
 
-const clamp = (value: number, min = 0, max = 1) =>
-  Math.min(Math.max(value, min), max);
-
-type AnimatedArcProps = {
-  targetRef: React.RefObject<HTMLElement | null>;
-};
-
-const AnimatedArc: React.FC<AnimatedArcProps> = ({ targetRef }) => {
-  const pathRef = useRef<SVGPathElement | null>(null);
-  const [pathLength, setPathLength] = useState(0);
-  const [progress, setProgress] = useState(0);
-
-  useEffect(() => {
-    if (pathRef.current) {
-      setPathLength(pathRef.current.getTotalLength());
-    }
-  }, []);
-
-  useEffect(() => {
-    if (typeof window === "undefined" || !targetRef.current) return;
-    const lenis = new Lenis({
-      smoothWheel: true,
-      duration: 1.2,
-    });
-
-    const handleScroll = () => {
-      if (!targetRef.current) return;
-      const rect = targetRef.current.getBoundingClientRect();
-      const viewport = window.innerHeight || 1;
-      const totalDistance = rect.height + viewport * 0.8;
-      const travelled = viewport * 0.4 - rect.top;
-      setProgress(clamp(travelled / totalDistance));
-    };
-
-    lenis.on("scroll", handleScroll);
-    handleScroll();
-
-    let rafId: number;
-    const raf = (time: number) => {
-      lenis.raf(time);
-      rafId = requestAnimationFrame(raf);
-    };
-    rafId = requestAnimationFrame(raf);
-
-    return () => {
-      lenis.off("scroll", handleScroll);
-      lenis.destroy();
-      cancelAnimationFrame(rafId);
-    };
-  }, [targetRef]);
-
-  const dashArray = Math.max(pathLength, 1);
-
+// Floating signal card component
+const SignalCard = ({
+  type,
+  coin,
+  change,
+  delay,
+}: {
+  type: "bullish" | "bearish";
+  coin: string;
+  change: string;
+  delay: string;
+}) => {
+  const isBullish = type === "bullish";
   return (
-    <div className="pointer-events-none absolute left-1/2 top-8 w-[170%] max-w-none -translate-x-1/2">
-      <svg
-        viewBox="0 0 1000 620"
-        className="w-full text-transparent"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <defs>
-          <linearGradient
-            id="hero-arc"
-            x1="0"
-            y1="0"
-            x2="1000"
-            y2="620"
-            gradientUnits="userSpaceOnUse"
+    <div
+      className={`animate-float rounded-xl lg:rounded-2xl border border-black/10 bg-white/80 backdrop-blur-sm p-3 lg:p-4 shadow-lg`}
+      style={{ animationDelay: delay }}
+    >
+      <div className="flex items-center gap-2 lg:gap-3">
+        <div
+          className={`h-8 w-8 lg:h-10 lg:w-10 rounded-full flex items-center justify-center ${
+            isBullish ? "bg-emerald-500/20" : "bg-red-500/20"
+          }`}
+        >
+          <svg
+            className={`h-4 w-4 lg:h-5 lg:w-5 ${isBullish ? "text-emerald-600" : "text-red-600 rotate-180"}`}
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
           >
-            <stop stopColor="#3F57FF" />
-            <stop offset="0.5" stopColor="#4154FF" />
-            <stop offset="1" stopColor="#2B7CFF" />
-          </linearGradient>
-          <marker
-            id="hero-arrow"
-            markerWidth="18"
-            markerHeight="18"
-            refX="12"
-            refY="9"
-            orient="auto"
-            markerUnits="userSpaceOnUse"
-          >
-            <path d="M0,0 L18,9 L0,18 Z" fill="#2B7CFF" />
-          </marker>
-        </defs>
-        <path
-          ref={pathRef}
-          d="M0 160C180 40 360 60 560 150C720 220 760 320 690 400C640 460 560 520 470 560"
-          stroke="url(#hero-arc)"
-          strokeWidth="20"
-          strokeLinecap="round"
-          markerEnd="url(#hero-arrow)"
-          style={{
-            strokeDasharray: dashArray,
-            strokeDashoffset: dashArray * (1 - progress),
-          }}
-        />
-      </svg>
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M5 10l7-7m0 0l7 7m-7-7v18"
+            />
+          </svg>
+        </div>
+        <div>
+          <p className="font-mori text-xs lg:text-sm font-semibold text-black">{coin}</p>
+          <p className={`font-bohemian text-[10px] lg:text-xs ${isBullish ? "text-emerald-600" : "text-red-600"}`}>
+            {change}
+          </p>
+        </div>
+      </div>
     </div>
   );
 };
 
-const Hero = () => {
-  const heroRef = useRef<HTMLElement | null>(null);
-  const [isVisible, setIsVisible] = useState(false);
-  const [{ x, y }, setPointerOffset] = useState({ x: 0, y: 0 });
-  const [isInteracting, setIsInteracting] = useState(false);
+// Twitter insight card
+const TwitterInsightCard = ({ delay }: { delay: string }) => (
+  <div
+    className="animate-float rounded-2xl border border-black/10 bg-white/90 backdrop-blur-sm p-4 shadow-lg max-w-[240px]"
+    style={{ animationDelay: delay }}
+  >
+    <div className="flex items-start gap-3">
+      <div className="h-8 w-8 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center shrink-0">
+        <svg className="h-4 w-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M22 4.01c-.77.35-1.6.58-2.47.69A4.15 4.15 0 0021.43 2a8.28 8.28 0 01-2.63 1.01 4.12 4.12 0 00-7 3.76A11.7 11.7 0 013 3.13a4.12 4.12 0 001.28 5.5 4.07 4.07 0 01-1.86-.52v.05a4.12 4.12 0 003.3 4 4.2 4.2 0 01-1.85.07 4.13 4.13 0 003.85 2.86A8.27 8.27 0 012 18.58a11.67 11.67 0 006.29 1.84c7.55 0 11.68-6.26 11.68-11.68l-.01-.53A8.34 8.34 0 0022 4.01z" />
+        </svg>
+      </div>
+      <div>
+        <p className="font-mori text-xs font-semibold text-black">Trending Signal</p>
+        <p className="font-bohemian text-[10px] text-black/60 mt-1">
+          AI detected bullish sentiment across 1.2k tweets
+        </p>
+      </div>
+    </div>
+  </div>
+);
 
-  useEffect(() => {
-    if (typeof window === "undefined" || !heroRef.current) return;
+// Live pulse indicator
+const LivePulse = () => (
+  <div className="flex items-center gap-2">
+    <span className="relative flex h-2.5 w-2.5">
+      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+      <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+    </span>
+    <span className="font-bohemian text-xs uppercase tracking-widest text-black/60">Live</span>
+  </div>
+);
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsVisible(true);
-            observer.disconnect();
-          }
-        });
-      },
-      { threshold: 0.35 }
-    );
-
-    observer.observe(heroRef.current);
-    return () => observer.disconnect();
-  }, []);
-
-  const handlePointerMove = (event: React.PointerEvent<HTMLElement>) => {
-    if (!heroRef.current) return;
-    const rect = heroRef.current.getBoundingClientRect();
-    const offsetX = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
-    const offsetY = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
-    setPointerOffset({ x: offsetX, y: offsetY });
-    setIsInteracting(true);
-  };
-
-  const handlePointerLeave = () => {
-    setIsInteracting(false);
-    setPointerOffset({ x: 0, y: 0 });
-  };
-
-  const parallaxStyle = (depth = 10) => ({
-    transform: `translate3d(${x * depth}px, ${y * depth}px, 0)`,
-    transition: isInteracting
-      ? "transform 80ms ease-out"
-      : "transform 400ms ease",
-  });
-
-  const glowStyle = {
-    opacity: isInteracting ? 0.85 : 0,
-    transform: `translate3d(${x * 60}px, ${y * 40}px, 0)`,
-    transition: isInteracting
-      ? "transform 80ms ease-out"
-      : "transform 600ms ease, opacity 500ms ease",
-  };
+// Animated Title with blur reveal per word
+const AnimatedTitle = () => {
+  const words = ["Insights", "that", "Lead", "with"];
+  const highlightWord = "Proven";
+  const endWord = "Intelligence";
 
   return (
-    <section
-      ref={heroRef}
-      className="relative overflow-hidden text-[#050714]"
-      onPointerMove={handlePointerMove}
-      onPointerLeave={handlePointerLeave}
-    >
-      {/* <AnimatedArc targetRef={heroRef} /> */}
+    <div className="perspective-1000">
+      <Typography variant="h1" weight="bold" className="inline">
+        {words.map((word, index) => (
+          <span
+            key={word}
+            className="inline-block animate-blur-reveal opacity-0"
+            style={{ animationDelay: `${index * 0.1}s`, animationFillMode: "forwards" }}
+          >
+            {word}&nbsp;
+          </span>
+        ))}
+        <span
+          className="inline-block animate-blur-reveal opacity-0"
+          style={{ animationDelay: "0.4s", animationFillMode: "forwards" }}
+        >
+          <span className="bg-gradient-to-r from-orange-500 via-amber-500 to-orange-600 bg-clip-text text-transparent">
+            {highlightWord}
+          </span>
+        </span>
+        &nbsp;
+        <span
+          className="inline-block animate-blur-reveal opacity-0"
+          style={{ animationDelay: "0.5s", animationFillMode: "forwards" }}
+        >
+          {endWord}
+        </span>
+      </Typography>
+    </div>
+  );
+};
 
-      <div
-        className={`relative z-10 mx-auto flex w-full flex-col gap-10 px-6 pb-28 pt-28 transition-all duration-700 ease-out sm:px-10 lg:px-0 ${
-          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-        }`}
-      >
-        <Typography
-          variant="h1"
-          className="text-center  font-medium leading-[0.92] text-[#050714]"
-        >
-          <span className="text-primary relative left-80">
-            Insights that Lead with
-          </span>
-          <br />
-          <span className="text-primary relative left-50">
-            Proven Intelligence
-          </span>
-        </Typography>
-        <div
-          className={`flex flex-raw justify-around gap-7 transition-all duration-700 delay-100 ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
-          }`}
-          style={parallaxStyle(12)}
-        >
-          <div className="w-[30%]">
-            <Image
-              src={heroClip}
-              alt="Abstract iridescent ribbons"
-              priority
-              className="h-full w-full object-cover"
-            />
+export default function Hero() {
+  return (
+    <section className="relative h-screen overflow-hidden">
+      {/* Main Content */}
+      <div className="relative z-10 mx-auto max-w-8xl px-4 sm:px-6 lg:px-8 h-full">
+        <div className="grid lg:grid-cols-2 gap-6 lg:gap-8 items-center h-full pt-20 md:pt-24">
+          {/* Left Content - Text */}
+          <div className="flex flex-col justify-center order-2 lg:order-1">
+
+            {/* Title with blur reveal */}
+            <AnimatedTitle />
+
+            {/* Subtitle with blur reveal */}
+            <div className="mt-4 lg:mt-6 max-w-xl">
+              <p
+                className="font-bohemian text-sm sm:text-base md:text-lg lg:text-xl text-black/70 leading-relaxed animate-blur-reveal opacity-0"
+                style={{ animationDelay: "0.6s", animationFillMode: "forwards" }}
+              >
+                Say goodbye to guesswork. Our AI analyzes Twitter trends and delivers precise trading signals—helping you stay ahead with real-time crypto insights.
+              </p>
+            </div>
+
+            {/* Buttons with staggered blur reveal */}
+            <div className="flex flex-wrap items-center gap-3 sm:gap-4 mt-6 lg:mt-8">
+              <div
+                className="animate-blur-reveal opacity-0"
+                style={{ animationDelay: "0.7s", animationFillMode: "forwards" }}
+              >
+                <Button variant="black">Launch App</Button>
+              </div>
+              <div
+                className="animate-blur-reveal opacity-0"
+                style={{ animationDelay: "0.8s", animationFillMode: "forwards" }}
+              >
+                <Button variant="white">Share Your Signals</Button>
+              </div>
+            </div>
           </div>
-          <div className="flex flex-col gap-7" style={parallaxStyle(18)}>
-            <Typography
-              variant="h6"
-              className="text-center text-base font-medium leading-relaxed text-[#050714] max-w-2xl mx-auto"
-            >
-              Say goodbye to guesswork. Our AI analyzes Twitter trends and
-              delivers precise trading signals—helping you stay ahead with
-              real-time crypto insights.
-              <br />
-              <br />
-              Say goodbye to guesswork. Our AI analyzes Twitter trends and
-              delivers precise trading signals—helping you stay ahead with
-              real-time crypto insights.
-            </Typography>
 
-            <div
-              className={`flex gap-4 transition-all duration-700 delay-200 ${
-                isVisible
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-3"
-              }`}
-              style={parallaxStyle(8)}
-            >
-              <Button
-                variant="black"
-                paddingX="px-7"
-                paddingY="py-3"
-                className="uppercase border border-black text-white"
+          {/* Right Content - Visual */}
+          <div className="relative order-1 lg:order-2 h-[45vh] sm:h-[50vh] lg:h-[70vh] max-h-[500px] lg:max-h-none">
+            {/* Main Visual Container */}
+            <div className="relative h-full w-full">
+              {/* Gradient Background Orb */}
+              <div 
+                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[250px] h-[250px] sm:w-[350px] sm:h-[350px] lg:w-[450px] lg:h-[450px] animate-blur-reveal-scale opacity-0"
+                style={{ animationDelay: "0.2s", animationFillMode: "forwards" }}
               >
-                Launch App
-              </Button>
-              <Button
-                variant="white"
-                paddingX="px-7"
-                paddingY="py-3"
-                className="uppercase border border-black/25 bg-transparent text-black hover:bg-black hover:text-white"
+                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-orange-200/40 via-amber-100/30 to-orange-300/40 blur-3xl animate-pulse-slow" />
+              </div>
+
+              {/* Center Dashboard Card */}
+              <div 
+                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[240px] sm:w-[280px] lg:w-[320px] animate-blur-reveal-scale opacity-0"
+                style={{ animationDelay: "0.4s", animationFillMode: "forwards" }}
               >
-                About Us
-              </Button>
+                <div className="rounded-2xl lg:rounded-3xl border border-black/10 bg-white/90 backdrop-blur-md p-4 lg:p-5 shadow-2xl">
+                  <div className="flex items-center justify-between mb-3">
+                    <h3 className="font-mori text-xs lg:text-sm font-semibold text-black">Market Overview</h3>
+                    <LivePulse />
+                  </div>
+                  
+                  {/* Mini Chart */}
+                  <div className="h-16 lg:h-20 mb-3 rounded-xl bg-gradient-to-b from-emerald-50 to-white border border-emerald-100 flex items-end justify-center p-2 gap-1">
+                    {[40, 55, 45, 70, 60, 85, 75, 90, 80, 95].map((height, i) => (
+                      <div
+                        key={i}
+                        className="w-3 sm:w-4 rounded-t bg-gradient-to-t from-emerald-500 to-emerald-400 animate-scroll-slide-up opacity-0"
+                        style={{ 
+                          height: `${height}%`,
+                          animationDelay: `${0.6 + i * 0.05}s`,
+                          animationFillMode: "forwards"
+                        }}
+                      />
+                    ))}
+                  </div>
+
+                  {/* Quick Stats */}
+                  <div className="grid grid-cols-2 gap-2">
+                    <div className="rounded-lg lg:rounded-xl bg-emerald-50 p-2 lg:p-3">
+                      <p className="font-bohemian text-[9px] lg:text-[10px] uppercase text-emerald-600">Bullish</p>
+                      <p className="font-mori text-base lg:text-lg font-bold text-emerald-700">67%</p>
+                    </div>
+                    <div className="rounded-lg lg:rounded-xl bg-red-50 p-2 lg:p-3">
+                      <p className="font-bohemian text-[9px] lg:text-[10px] uppercase text-red-600">Bearish</p>
+                      <p className="font-mori text-base lg:text-lg font-bold text-red-700">33%</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Floating Cards with blur reveal */}
+              <div 
+                className="hidden sm:block absolute top-2 lg:top-4 right-0 lg:right-4 animate-blur-reveal-right opacity-0"
+                style={{ animationDelay: "0.8s", animationFillMode: "forwards" }}
+              >
+                <SignalCard type="bullish" coin="BTC/USDT" change="+5.24%" delay="0s" />
+              </div>
+
+              <div 
+                className="hidden sm:block absolute bottom-8 lg:bottom-16 left-0 lg:left-4 animate-blur-reveal-left opacity-0"
+                style={{ animationDelay: "0.9s", animationFillMode: "forwards" }}
+              >
+                <SignalCard type="bearish" coin="ETH/USDT" change="-2.18%" delay="0.5s" />
+              </div>
+
+              <div 
+                className="hidden lg:block absolute top-16 -left-4 animate-blur-reveal-left opacity-0"
+                style={{ animationDelay: "1s", animationFillMode: "forwards" }}
+              >
+                <TwitterInsightCard delay="0.25s" />
+              </div>
+
+              {/* Decorative Elements */}
+              <div 
+                className="hidden sm:block absolute bottom-4 right-4 lg:bottom-8 lg:right-8 animate-blur-reveal-scale opacity-0"
+                style={{ animationDelay: "1.1s", animationFillMode: "forwards" }}
+              >
+                <div className="h-12 w-12 lg:h-14 lg:w-14 rounded-xl lg:rounded-2xl border border-black/10 bg-white/80 backdrop-blur-sm flex items-center justify-center shadow-lg animate-float">
+                  <svg className="h-6 w-6 lg:h-7 lg:w-7 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </section>
   );
-};
-
-export default Hero;
+}
