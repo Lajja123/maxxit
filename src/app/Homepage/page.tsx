@@ -8,7 +8,7 @@ function Homepage() {
     <div className="relative">
       <Hero />
       <WhyChoose />
-      <HowItWorks />
+      {/* <HowItWorks /> */}
     </div>
   );
 }
