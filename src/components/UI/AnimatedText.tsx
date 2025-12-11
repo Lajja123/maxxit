@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { JSX, useEffect, useState } from "react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 interface AnimatedTextProps {
   children: string;
-  as?: keyof JSX.IntrinsicElements;
+  as?: keyof JSX.IntrinsicElements | React.ComponentType<any>;
   className?: string;
   animation?: "blur" | "word" | "char";
   delay?: number;
